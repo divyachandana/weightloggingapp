@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<div>
+  <textarea rows="18" cols="40" disabled>
+    JAVASCRIPT CODE PROBLEM 1
+    --------------------------
+          var i = 4,j = 6;
+      for (var k = 0; k <= 4; k++) {
+        var a = '';
+        for (var l = 0; l <= i; l++) {
+            a += j;
+        }
+        console.log('' + i + i + a);
+        j--;
+        i--;
+      }
+  </textarea>
+
+  <textarea rows="18" cols="120" disabled>
+      JAVASCRIPT CODE PROBLEM 2 IMPLEMENTATION
+      -----------------------------------------
+      var cartList = [{productCode: 'puma',quantity: 1}];
+
+      function addProduct(productCode, quantity) {
+          var index = cartList.map(function(x) {
+              return x.productCode;
+          }).indexOf(productCode);
+          if (index == -1) {
+              cartList.push({
+                  productCode: productCode,
+                  quantity: quantity
+              });
+              console.log("Product added successfully");
+          } else {
+              cartList[index].quantity = parseInt(cartList[index].quantity + parseInt(quantity));
+              console.log("Product quantity updated successfully");
+          }
+      }
+
+      function removeProduct(productCode) {
+          var index = cartList.map(function(x) {
+              return x.productCode;
+          }).indexOf(productCode);
+          if (index == -1) {
+              console.log("Product not existes");
+          } else {
+              cartList.splice(index, 1);
+              console.log("Product removed successfully");
+          }
+      }
+
+      function showCart() {
+          for (var i = 0; i < cartList.length; i++) {
+              console.log('{' + cartList[i].productCode + '} ({' + cartList[i].quantity + '})');
+          }
+      }
+  </textarea>
+
+</div>
+<p>
+  JAVASCRIPT CODE PROBLEM 3 IMPLEMENTATION<br />
+    -----------------------------------------------------------------------
+</p>
+<div style="margin-top:20px;margin-bottom:50px;text-align:center">
+    <p>
+      WEIGHT LOGGING APP
+    </p>
+  <button type="button" ng-click="add()" class="addButton">Add <i class="fa fa-plus" aria-hidden="true"></i></button>
+</div>
+
+
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Min</th>
+    <th>Max</th>
+    <th>Variance</th>
+
+  </tr>
+
+  <tr ng-repeat="data in totalList |orderBy:'mainDate':true" >
+    <td>
+      {{data.mainDate  | date:'yyyy/MM/dd'}}
+    </td>
+    <td>
+      {{data.min}}
+    </td>
+    <td>
+      {{data.max}}
+    </td>
+    <td>
+      {{data.variance}}
+    </td>
+    <td>
+      <i class="fa fa-pencil-square-o" aria-hidden="true" ng-click="edit(data.id)"> </i>
+    </td>
+    <td>
+      <i class="fa fa-trash-o" aria-hidden="true" ng-click="delete(data.id)"></i>
+    </td>
+  </tr>
+  <tr ng-if="totalList.length>0">
+    <td>
+      Average
+    </td>
+    <td>
+      {{calculateAverage('min')}}
+    </td>
+    <td>
+      {{calculateAverage('max')}}
+    </td>
+    <td>
+      {{calculateAverage('variance')}}
+
+    </td>
+  </tr>
+  <tr>
+
+  </tr>
+</table>
+
+
+
+
+
+<div class="dialog-container-wrapper" ng-show="showPopup">
+  <div class="dialog-container">
+    <div>
+
+
+    </div>
+    <div class="dialog-close" ng-click="showPopup=false"><span><i class="fa fa-times" aria-hidden="true"></i></span></div>
+    <div class="dialog-title" style="text-transform: capitalize"> {{popupDescription}}</div>
+    <div class="dialog-description">
+      <div ng-show="showAdd">
+        Pick Date
+      </div>
+      <div ng-hide="showAdd">
+        Selected Date
+      </div>
+      <input ng-model="datePicker" id='myDatePicker' ui-date /><br /><br />
+      Min: <input type="number" min="0" max="999" name="min" ng-model="min"><br /><br />
+      Max: <input type="number"  min="0" max="999" name="max" ng-model="max"><br /><br />
+
+    </div>
+    <input ng-show="showAdd" type="button" value="CONFIRM"  ng-click="confirmAdd()" class="addButton" />
+    <input ng-show="!showAdd" type="button" value="CONFIRM"  ng-click="confirmAdd(1)" class="addButton" />
+        <input type="button"  value="CLOSE"  ng-click="showPopup=false" class="addButton" />
+  </div>
+</div>
